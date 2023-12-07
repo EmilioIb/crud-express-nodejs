@@ -7,6 +7,7 @@ const errorHandler = require("./middlewares/error.handler");
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 app.use(require("./routes/index.routes"));
 app.use(errorHandler);

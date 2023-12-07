@@ -58,7 +58,96 @@ const getUser = async (userId) => {
   }
 };
 
+const addUser = async (firstName, lastName, age) => {
+  try {
+    const res = await userRepository.addUser(firstName, lastName, age);
+    const { msg, status } = res[0].users_insuser;
+
+    if (!status) {
+      return {
+        code: 500,
+        payload: {
+          status,
+          msg,
+        },
+      };
+    } else {
+      return {
+        code: 200,
+        payload: {
+          status,
+          msg,
+        },
+      };
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateUser = async (userId, firstName, lastName, age) => {
+  try {
+    const res = await userRepository.updateUser(
+      userId,
+      firstName,
+      lastName,
+      age
+    );
+    const { msg, status } = res[0].users_upduser;
+
+    if (!status) {
+      return {
+        code: 500,
+        payload: {
+          status,
+          msg,
+        },
+      };
+    } else {
+      return {
+        code: 200,
+        payload: {
+          status,
+          msg,
+        },
+      };
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+const deleteUser = async (userId) => {
+  try {
+    const res = await userRepository.deleteUser(userId);
+    const { msg, status } = res[0].users_deluser;
+
+    if (!status) {
+      return {
+        code: 500,
+        payload: {
+          status,
+          msg,
+        },
+      };
+    } else {
+      return {
+        code: 200,
+        payload: {
+          status,
+          msg,
+        },
+      };
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getUsers,
   getUser,
+  addUser,
+  updateUser,
+  deleteUser,
 };
