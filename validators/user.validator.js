@@ -24,7 +24,7 @@ class UserValidator {
       .options({ allowUnknown: true, stripUnknown: true });
   };
 
-  deleteUser = () => {
+  deleteAndGetUser = () => {
     return joi
       .object()
       .keys({

@@ -3,7 +3,7 @@ const Validator = require("../validators/user.validator");
 class UsersMiddleware {
   addUser = async (req, res, next) => {
     try {
-      req.userToAdd = await Validator.addUser().validateAsync({
+      await Validator.addUser().validateAsync({
         ...req.body,
       });
 
@@ -17,7 +17,7 @@ class UsersMiddleware {
 
   updateUser = async (req, res, next) => {
     try {
-      req.userToUpdate = await Validator.updateUser().validateAsync({
+      await Validator.updateUser().validateAsync({
         ...req.params,
         ...req.body,
       });
@@ -30,9 +30,9 @@ class UsersMiddleware {
     }
   };
 
-  deleteUser = async (req, res, next) => {
+  deleteAndGetUser = async (req, res, next) => {
     try {
-      req.userToDelete = await Validator.deleteUser().validateAsync({
+      await Validator.deleteAndGetUser().validateAsync({
         ...req.params,
       });
 
