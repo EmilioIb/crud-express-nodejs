@@ -30,6 +30,16 @@ class UserValidator {
       .options({ allowUnknown: true, stripUnknown: true });
   };
 
+  addProfilePhoto = () => {
+    return joi
+      .object()
+      .keys({
+        userId: joi.number().integer().min(1).required(),
+        file: joi.object().required(),
+      })
+      .options({ allowUnknown: true, stripUnknown: true });
+  };
+
   updateUpload = () => {
     return joi
       .object()

@@ -64,6 +64,22 @@ const updateUpload = async (uploadId, uploadName, fileName) => {
   }
 };
 
+const addProfilePhoto = async (uploadId, image) => {
+  try {
+    const query =
+      "select user_profilePhoto(:uploadId, :image);";
+    return await queryGenerator.executeQuery(
+      query,
+      {
+        uploadId, image
+      },
+      false
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
 const deleteUpload = async (uploadId) => {
   try {
     const query = "select uploads_delUpload(:uploadId)";
@@ -86,4 +102,5 @@ module.exports = {
   addUpload,
   updateUpload,
   deleteUpload,
+  addProfilePhoto,
 };

@@ -45,6 +45,21 @@ class UploadsMiddleware {
     }
   };
 
+  addProfilePhoto = async (req, res, next) => {
+    try {
+      await Validator.addProfilePhoto().validateAsync({
+        ...req.params,
+        ...req.files,
+      });
+
+      next();
+    } catch (error) {
+      res
+        .status(400)
+        .json({ status: false, message: error.message || error, data: null });
+    }
+  };
+
   updateUpload = async (req, res, next) => {
     try {
       await Validator.updateUpload().validateAsync({

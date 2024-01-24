@@ -50,6 +50,32 @@ const addUpload = async (req, res, next) => {
   }
 };
 
+const addProfilePhoto = async (req, res, next) => {
+  try {
+    const { tempFilePath } = req.files.file;
+    const { userId } = req.params;
+
+    const { payload: userData } = await userService.getUser(userId);
+    if(userData.data.length <= 0) throw "User not found";
+
+    const {image} = userData.data[0]; 
+
+    if(image !== null){
+      const splitedUrl = image.split("/");
+      const name = splitedUrl[splitedUrl.length - 1];
+      const publicId = name.split(".")[0];
+      await cloudinary.v2.uploader.destroy(publicId);
+    }
+
+    const { secure_url } = await cloudinary.uploader.upload(tempFilePath);
+    const { code, payload } = await uploadService.addProfilePhoto(userId, secure_url);
+
+    return res.status(code).json(payload);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const updateUpload = async (req, res, next) => {
   try {
     const { userId, uploadId } = req.params;
@@ -119,4 +145,5 @@ module.exports = {
   addUpload,
   updateUpload,
   deleteUpload,
+  addProfilePhoto,
 };

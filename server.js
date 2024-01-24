@@ -34,3 +34,5 @@ postgresSequelize
   .catch((err) => {
     throw err;
   });
+
+// todo: añadir logs de acciones
